@@ -1,29 +1,57 @@
             <div id="header">
 				<div id="logo">
-					<a href="index.html"><img src="images/logo.png" alt="LOGO" height="100" width="200"></a>
+					<a href="/"><img src="images/logo.png" alt="LOGO" height="100" width="200"></a>
 				</div>
 				<div id="navigation">
 					<ul>
-						<li>
-							<a href="index.html">Home</a>
-						</li>
+						{{#if indexType}}
 						<li class="selected">
-							<a href="travel.html">Travel</a>
-						</li>
+						{{else}}
 						<li>
-							<a href="rooms.html">Rooms</a>
+						{{/if}}
+							<a href="/">Home</a>
 						</li>
+						{{#if travelType}}
+						<li class="selected">
+						{{else}}
 						<li>
-							<a href="meals.html">Meals</a>
+						{{/if}}
+							<a href="/travel">Travel</a>
 						</li>
+						{{#if roomsType}}
+						<li class="selected">
+						{{else}}
 						<li>
-							<a href="news.html">News</a>
+						{{/if}}
+							<a href="/rooms">Rooms</a>
 						</li>
+						{{#if mealsType}}
+						<li class="selected">
+						{{else}}
 						<li>
-							<a href="about.html">About</a>
+						{{/if}}
+							<a href="/meals">Meals</a>
 						</li>
+						{{#if newsType}}
+						<li class="selected">
+						{{else}}
 						<li>
-							<a href="contact.html">Contact</a>
+						{{/if}}
+							<a href="/news">News</a>
+						</li>
+						{{#if aboutType}}
+						<li class="selected">
+						{{else}}
+						<li>
+						{{/if}}
+							<a href="/about">About</a>
+						</li>
+						{{#if contactType}}
+						<li class="selected">
+						{{else}}
+						<li>
+						{{/if}}
+							<a href="/contact">Contact</a>
 						</li>
 					</ul>
 				</div>
