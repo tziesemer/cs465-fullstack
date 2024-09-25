@@ -1,5 +1,5 @@
 var fs = require('fs');
-var rooms2 = JSON.parse(fs.readFileSync('.data/rooms2.json','utf8'));
+var rooms2 = JSON.parse(fs.readFileSync('./data/rooms2.json','utf8'));
 
 /* GET Travel View */
 const rooms = (req, res) => {
