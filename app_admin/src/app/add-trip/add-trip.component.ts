@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router';
 import { TripDataService } from '../services/trip-data.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-add-trip',
@@ -18,7 +19,8 @@ export class AddTripComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private tripService: TripDataService
+    private tripService: TripDataService,
+    private authorizationService: AuthenticationService
   ){}
 
   ngOnInit(): void {
@@ -38,7 +40,7 @@ export class AddTripComponent implements OnInit {
   public onSubmit(){
     this.submitted = true;
     if(this.addForm.valid){
-      this.tripService.addTrip(this.addForm.value)
+      this.tripService.addTrip(this.addForm.value, this.authorizationService.getToken())
       .subscribe({
         next: (data:any) =>{
           console.log(data);

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { TripDataService } from '../services/trip-data.service';
 import { Trip } from '../models/trip';
+import { formatDate } from '@angular/common';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-edit-trip',
@@ -24,11 +26,15 @@ export class EditTripComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private tripDataService: TripDataService,
+    private authorizationService: AuthenticationService
   ){}
 
   ngOnInit(): void {
       //Retrieve stashed trip ID
       let tripCode = localStorage.getItem("tripCode");
+      let startDate = JSON.stringify(localStorage.getItem('startDate'));
+      startDate = JSON.parse(startDate);
+      startDate = formatDate(startDate, 'yyyy-MM-dd', 'en');
 
       if(!tripCode){
         alert("Something wrong, couldn't find where I stashed tripCode!");
@@ -44,7 +50,7 @@ export class EditTripComponent implements OnInit {
         code: [tripCode, Validators.required],
         name: ["", Validators.required],
         length: ["", Validators.required],
-        start:  ["",Validators.required],
+        start:  ["", Validators.required],
         resort: ["", Validators.required],
         perPerson: ["", Validators.required],
         image: ["", Validators.required],
@@ -55,6 +61,7 @@ export class EditTripComponent implements OnInit {
         .subscribe({
           next:(value: any) => {
             this.trip = value;
+            value[0].start = startDate;
             //Populate our record into the form
             this.editForm.patchValue(value[0]);
             if(!value)
@@ -78,7 +85,7 @@ export class EditTripComponent implements OnInit {
 
     if(this.editForm.valid)
     {
-      this.tripDataService.updateTrip(this.editForm.value)
+      this.tripDataService.updateTrip(this.editForm.value, this.authorizationService.getToken())
         .subscribe({
           next: (value: any) => {
             console.log(value);
