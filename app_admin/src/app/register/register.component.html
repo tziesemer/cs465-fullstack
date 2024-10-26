@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col-12 col-md-2">
-        <h2>Login</h2>
-        <form (ngSubmit)="onLoginSubmit()">
+    <div class="col-12 col-md-4">
+        <h2>Register User</h2>
+        <form (ngSubmit)="onRegisterSubmit()">
             <div role="alert" *ngIf="formError" class="alert alert-danger">
                 {{ formError }}
             </div>
@@ -24,7 +24,7 @@
             </div>
             <br>
             <button type="submit" role="button" class="btn btn-primary">
-                Sign In!
+                Register!
             </button>
         </form>
     </div>

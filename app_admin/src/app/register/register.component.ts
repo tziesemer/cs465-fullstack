@@ -9,10 +9,10 @@ import { User } from '../models/user';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css'
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   public formError: string = '';
   submitted = false;
@@ -32,20 +32,20 @@ export class LoginComponent implements OnInit {
     
   }
 
-  public onLoginSubmit(): void {
-    console.log('In onLoginSubmit');
+  public onRegisterSubmit(): void {
+    console.log('In onRegisterSubmit');
     this.formError = '';
     if (!this.credentials.email || !this.credentials.password || !this.credentials.name){
-      console.log('no credentials');
       this.formError =  'All fields are required, please try again';
       this.router.navigateByUrl('#'); // Return to login page
     } else {
       console.log('credentials accepted');
-      this.doLogin();
+      this.registerUser();
     }
   }
 
-  public doLogin(): void {
+
+  public registerUser(): void {
     let newUser = {
       name: this.credentials.name,
       email: this.credentials.email,
@@ -54,19 +54,9 @@ export class LoginComponent implements OnInit {
 
     //console.log('LoginComponent::doLogin');
     //console.log(this.credentials);
-    this.authenticationService.login(newUser);
+    this.authenticationService.register(newUser);
 
-    if(this.authenticationService.isLoggedIn()){
-      console.log('Router direct');
-      this.router.navigate(['list-trips']);
-    } else {
-      var timer = setTimeout(() => {
-        if(this.authenticationService.isLoggedIn()){
-          //console.log('Router pause');
-          this.router.navigate(['list-trips']);
-        }
-      }, 1000);
-    }
+    this.router.navigate(['list-trips']);
   }
 
 }

@@ -89,13 +89,28 @@ export class EditTripComponent implements OnInit {
         .subscribe({
           next: (value: any) => {
             console.log(value);
-            this.router.navigate(['']);
+            this.router.navigate(['list-trips']);
           },
           error: (error: any) => {
             console.log('Error: ' + error);
           }
         })
     }
+  }
+
+  public deleteTrip()
+  {
+    this.tripDataService.deleteTrip(this.editForm.value.code, this.authorizationService.getToken())
+      .subscribe({
+        next: (value: any) => {
+          console.log(value);
+          this.router.navigate(['list-trips'])
+        },
+        error: (error: any) => {
+          console.log('error: ' + error);
+        }
+      })
+  
   }
 
   // get the form short name to access the form fields

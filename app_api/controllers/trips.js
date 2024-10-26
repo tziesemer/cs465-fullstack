@@ -127,6 +127,35 @@ const tripsUpdateTrip = async(req, res) => {
             //console.log(q);
 };
 
+const tripsDeleteTrip = async(req, res) => {
+    
+    // Uncomment for Debugging
+    //console.log(req.params);
+    //console.log(req.body);
+    console.log('Made it into tripsDeleteTrip');
+    if(getUser(req, res).status == 201);
+            console.log("made it into update")
+    const q = await Model
+        .findOneAndDelete(
+            {'code': req.params.tripCode}
+        )
+        .exec();
+
+        if(!q)
+            {//Database returns no data
+                return res
+                    .status(400)
+                    .json(err);
+            }else{//Return resulting updated trip
+                return res
+                    .status(201);
+            }
+
+            //Uncomment the following line to show results of operation
+            //on the console
+            //console.log(q);
+};
+
 const getUser = async(req, res) => {
     if(req.authorization && req.authorization.email) {
         const q = await User
@@ -154,5 +183,6 @@ module.exports = {
     tripsList,
     tripsFindByCode,
     tripsAddTrip,
-    tripsUpdateTrip
+    tripsUpdateTrip,
+    tripsDeleteTrip
 };

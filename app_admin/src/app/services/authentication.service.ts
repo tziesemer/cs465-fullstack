@@ -41,7 +41,7 @@ public logout (): void {
 
 public isLoggedIn (): boolean {
   const token = this.getToken();
-  //console.log(token);
+  //console.log('token' + token);
   //console.log('AuthenticationService::isLoggedin');
   if (token) {
     const payload = JSON.parse(atob(token.split('.')[1]));

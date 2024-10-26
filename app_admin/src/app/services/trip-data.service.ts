@@ -42,12 +42,20 @@ export class TripDataService {
       let headers = new HttpHeaders({
         'Authorization': token  
       });
-
       return this.http.put<Trip>(this.url + '/' + formData.code, formData, {headers: headers});
     }
 
+    deleteTrip(code: string, token: string) : Observable<Trip> {
+      //console.log('Inside TripDataService::deleteTrip);
+      let headers = new HttpHeaders({
+        'Authorization': token
+      });
+      
+      return this.http.delete<Trip>(this.url + '/' + code, {headers: headers});
+    }
+
     login(user: User) : Promise<Authresponse> {
-      console.log('in trip-data login');
+      //console.log('in trip-data login');
       return this.handleAuthAPICall('login', user);
     }
 

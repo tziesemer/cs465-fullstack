@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 function auth(req, res, next) {
     // console.log('In middleware');
     const authHeader = req.headers['authorization'];
-    //console.log('Auth header: ' +  authHeader);
+    console.log('Auth header: ' +  authHeader);
 
     if(authHeader == null){
         console.log('Auth Header Required but NOT PRESENT!');
@@ -31,7 +31,8 @@ function auth(req, res, next) {
     //console.log(jwt.decode(token));
     const verified = jwt.verify(authHeader, process.env.JWT_SECRET, (err, verified) => {
         if(err){
-            return res.sendStatus(401).json('Token Validation Error!');
+            console.log('didnt match token');
+             return res.sendStatus(401).json('Token Validation Error!');
         }
         req.authorization = verified;
         console.log('token accepted')
@@ -63,6 +64,7 @@ router
 router
     .route('/trips/:tripCode')
     .get(tripsController.tripsFindByCode)
-    .put(auth, tripsController.tripsUpdateTrip);
+    .put(auth, tripsController.tripsUpdateTrip)
+    .delete(auth, tripsController.tripsDeleteTrip);
 
 module.exports = router;

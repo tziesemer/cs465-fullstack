@@ -8,10 +8,13 @@
         </div>
     </div>
     <div class="navbar-end">
-        <a class="nav-item" routerLink="login" *ngIf="!isLoggedIn()">
+        <a class="nav-item px-2" routerLink="login" *ngIf="!isLoggedIn()">
             <span class="has-icon-left ">Log In</span>
         </a>
-        <a class="nav-item active" (click)="onLogout()" *ngIf="isLoggedIn()">
+        <a class="nav-item px-4" routerLink="register" *ngIf="!isLoggedIn()">
+            <span class="has-icon-right">Register User</span>
+        </a>
+        <a class="nav-item px-4 active" (click)="onLogout()" *ngIf="isLoggedIn()">
             <span class="has-icon-left ">Log Out</span>
         </a>
     </div>
